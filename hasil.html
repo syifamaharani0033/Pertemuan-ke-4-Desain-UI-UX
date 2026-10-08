@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank you your order</title>
+    <style type="text/css">
+        ol, ul {
+            list-style-type: none;
+        }
+        body {
+            backround-color: #faf2e4;
+            margin: 0 10%;
+            font-family: sans-serif;
+        }
+        h1 {
+            text-align: center;
+            font-family: serif;
+            font-weight: normal;
+            text-transform: uppercase;
+            border-bottom: 1px solid #57b1dc;
+            margin-top: 30px;
+        }
+        h2 {
+            color: #d1633c;
+            font-size: 1em;
+        }
+        p.disclaimer {
+            border-top: 1px solid #d1633c;
+            padding-top: 1em;
+        }
+    </style>
+</head>
+<body>
+    <h1>THANK YOU</h1>
+    <p>
+    "Thank you for ordering from Black Goose Bistro. We have received the following information about your order:"
+    </p>
+    <h2>Your Information</h2>
+    <ul>
+        <li>
+            <strong>Name:</strong>
+            <span id="name"><em>empty</em></span>
+        </li>
+        <li>
+            <strong>Address:</strong>
+            <span id="address"><em>empty</em></span>
+        </li>
+        <li>
+            <strong>Telephone number:</strong>
+            <span id="telephone"><em>empty</em></span>
+        </li>
+        <li>
+            <strong>Email Address:</strong>
+            <span id="email"><em>empty</em></span>
+        </li>
+    </ul>
+    <p>
+        <strong>Delivery instructions:</strong>
+        <span id="instructions"><em>empty</em></span>
+    </p>
+    <h2>Your pizza</h2>
+    <div id="pizza-info">
+        <em>empty</em>
+    </div>
+    <p class="disclaimer">This site is for educational purposes only.</p>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const name = params.get("customername");
+        const address = params.get("address");
+        const telephone = params.get("telephone");
+        const email = params.get("email");
+        const instructions = params.get("instructions");
+        const crust = params.get("crust");
+        const toppings = params.getAll("toppings[]");
+        const pizzas = params.get("pizzas");
+
+        if (name) document.getElementById("name").textContent = name;
+        if (address) document.getElementById("address").textContent = address;
+        if (telephone) document.getElementById("telephone").textContent = telephone;
+        if (email) document.getElementById("email").textContent = email;
+        if (instructions) document.getElementById("instructions").textContent = instructions;
+
+        let pizzaText = [];
+        if (crust) pizzaText.push("Crust: " + crust);
+        if (toppings.length > 0) pizzaText.push("Toppings: " + toppings.join(", "));
+        if (pizzas) pizzaText.push("Quantity: " + pizzas);
+
+        if (pizzaText.length > 0) {
+            document.getElementById("pizza-info").innerHTML = "<ul><li>" + pizzaText.join("</li><li>") + "</li></ul>";
+        }
+    </script>
+</body>
+</html>
